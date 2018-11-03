@@ -1,3 +1,4 @@
+package ru.eltex;
 import java.math.*;
 import java.util.*;
 class Main{

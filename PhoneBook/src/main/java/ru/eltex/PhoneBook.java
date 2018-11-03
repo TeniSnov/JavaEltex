@@ -1,3 +1,4 @@
+package ru.eltex;
 import java.util.LinkedList;
 class PhoneBook{
   private LinkedList<User> book = new LinkedList();

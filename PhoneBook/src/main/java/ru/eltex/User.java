@@ -1,3 +1,4 @@
+package ru.eltex;
 class User{
   private String FIO;
   private String Phone;
