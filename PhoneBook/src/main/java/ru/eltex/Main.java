@@ -1,33 +1,46 @@
 package ru.eltex;
 import java.math.*;
 import java.util.*;
+import java.io.*;
 class Main{
   public static void main(String[] args) {
+    int a=0;
     PhoneBook tmp = new PhoneBook();
-    tmp.addUser("Мокаревич Иван Петрович","8-965-416-5162");
-    tmp.addUser("Зеленцова Ольга Ахмедовна","8-903-215-8632");
-    tmp.addUser("Жук Анна Ивановна","8-976-435-2135");
-    tmp.addUser("Вьюнов Павел Игоревич","8-978-432-1355");
-    tmp.addUser("Сельская Оксана Викторовна","8-932-154-6145");
+    tmp.fromCSV("phone.csv");
     System.out.println("1 - добавление пользователя");
     System.out.println("2 - удаление пользователя");
     System.out.println("3 - поиск пользователя по ФИО");
     System.out.println("4 - поиск пользователя по телефону");
     System.out.println("5 - вывод на экран всех пользователей");
+    System.out.println("6 - вывод всех пользователей в файл");
     Scanner in = new Scanner(System.in);
     boolean fl=true;
-    int a;
-    String s, ph;
+    String s, ph, inn, tmp1;
+    char sx;
+    int x;
     while(fl){
-      System.out.println("Выберите действие(1,2,3,4,5)");
+      System.out.println("Выберите действие(1,2,3,4,5,6)");
       a = in.nextInt();
       s = in.nextLine();
       switch(a){
         case 1:{
-          System.out.println("Введите данные нового пользователя(ФИО телефон)");
+          System.out.println("Какого пользователя хотите добавить? 0 - Юр, 1 - Физ");
+          x = in.nextInt();
           s = in.nextLine();
-          ph = in.next();
-          tmp.addUser(s,ph);
+          if(x==0){
+            System.out.println("Введите данные(ФИО, телефон, ИНН)");
+            s = in.nextLine();
+            ph = in.nextLine();
+            inn = in.next();
+            tmp.addUser(s,ph,inn);
+          }
+          else {
+            System.out.println("Введите данные(ФИО, телефон, пол)");
+            s = in.nextLine();
+            ph = in.nextLine();
+            tmp1 = in.next();
+            tmp.addUser(s,ph,tmp1.charAt(0));
+          }
           break;
         }
         case 2:{
@@ -51,6 +64,16 @@ class Main{
         }
         case 5:{
           tmp.printALL();
+          break;
+        }
+        case 6:{
+          try( FileWriter fwr = new FileWriter("phone.csv",false)){
+            tmp.toCSV(fwr);
+            fwr.close();
+          }
+          catch (IOException e){
+            e.getMessage();
+          }
           break;
         }
         default:{

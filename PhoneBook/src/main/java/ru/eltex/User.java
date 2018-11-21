@@ -1,12 +1,23 @@
 package ru.eltex;
-class User{
+abstract class User implements CSV{
+  private static int ind;
   private String FIO;
   private String Phone;
+  private int index=0;
   public void setFIO(String t){
     this.FIO=t;
   }
   public String getFIO(){
     return this.FIO;
+  }
+  public int getIndex(){
+    return this.index;
+  }
+  User(String f, String p){
+    this.FIO = f;
+    this.Phone = p;
+    this.index = ind +1;
+    ind++;
   }
   public void setPhone(String t){
     this.Phone=t;
@@ -14,9 +25,9 @@ class User{
   public String getPhone(){
     return this.Phone;
   }
-  public void println(){
-    System.out.print(this.FIO);
-    System.out.print(" ");
-    System.out.println(this.Phone);
+  abstract public void println();
+  public void fromCSV(){
+  }
+  public void toCSV(){
   }
 }
